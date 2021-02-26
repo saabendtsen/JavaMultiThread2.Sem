@@ -1,15 +1,36 @@
+import java.io.File;
+import java.io.IOException;
+import java.time.LocalDateTime;
+
 public class Main {
 
-    public static void main(String[] args) throws InterruptedException {
-        Thread t0 = new Thread(new WorkerClass());
 
+
+    public static void main(String[] args) throws InterruptedException, IOException {
+        FileMaker fm = new FileMaker();
+        Thread t0 = new Thread(new WorkerClass());
         Thread t1 = new Thread(new DeworkerClass());
 
 
-        t0.join();
-        t1.join();
+
+
+        long startTime = System.currentTimeMillis();
+
+        fm.createFile(10);
+        fm.deleteFiles(10);
+
+        long endTime = System.currentTimeMillis();
+        System.out.println(endTime-startTime);
+
+        int nrThreads = 2;
 
         System.out.println(sharedResource.number);
+        //Assign writes
+
+        for (int i = nrThreads; i < nrThreads/10; i++){
+
+
+        }
     }
 }
 
@@ -23,6 +44,7 @@ class sharedResource {
 }
 
 class DeworkerClass implements Runnable {
+
 
     @Override
     public void run() {
